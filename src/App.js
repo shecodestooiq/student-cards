@@ -1,21 +1,19 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Navbar from './components/Navbar';
-import SingleStudent from './pages/SingleStudent';
-
+import { useEffect, useState } from 'react';
 function App() {
+  const [memes, setMemes] = useState([]);
+  useEffect(() => {
+    fetch('https://last-airbender-api.fly.dev/api/v1/characters')
+      .then((resp) => resp.json())
+      .then((respJson) => setMemes(respJson));
+  }, []);
+  console.log(memes);
   return (
     <div>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/student/:id' element={<SingleStudent />} />
-        </Routes>
-      </BrowserRouter>
+      <h1>Memes</h1>
+      {memes.map((meme) => (
+        <div>{meme.name}</div>
+      ))}
     </div>
   );
 }
