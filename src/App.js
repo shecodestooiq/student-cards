@@ -1,21 +1,23 @@
 import './App.css';
-import { useState } from 'react';
-import User1 from './components/User1';
-import User2 from './components/User2';
-import { UserProvider } from './store/store';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Products from './pages/Products';
+import HomePage from './pages/HomePage';
+import Navbar from './components/Navbar';
+import { ProductsProvider } from './store';
+import ProductDetails from './components/ProductDetails';
 function App() {
   return (
     <>
-      <UserProvider>
-        <ul>
-          <li>
-            <User1 />
-          </li>
-          <li>
-            <User2 />
-          </li>
-        </ul>
-      </UserProvider>
+      <ProductsProvider>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/products' element={<Products />} />
+            <Route path='/products/:id' element={<ProductDetails />} />
+          </Routes>
+        </BrowserRouter>
+      </ProductsProvider>
     </>
   );
 }
