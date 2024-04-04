@@ -1,20 +1,22 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import User1 from './components/User1';
+import User2 from './components/User2';
+import { UserProvider } from './store/store';
 function App() {
-  const [memes, setMemes] = useState([]);
-  useEffect(() => {
-    fetch('https://last-airbender-api.fly.dev/api/v1/characters')
-      .then((resp) => resp.json())
-      .then((respJson) => setMemes(respJson));
-  }, []);
-  console.log(memes);
   return (
-    <div>
-      <h1>Memes</h1>
-      {memes.map((meme) => (
-        <div>{meme.name}</div>
-      ))}
-    </div>
+    <>
+      <UserProvider>
+        <ul>
+          <li>
+            <User1 />
+          </li>
+          <li>
+            <User2 />
+          </li>
+        </ul>
+      </UserProvider>
+    </>
   );
 }
 
